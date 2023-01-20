@@ -1,0 +1,133 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Biblioteca ESPE</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css")
+
+
+</head>
+
+
+<body class="d-flex flex-column h-100">
+    @{
+        Biblioteca.Models.Persona objeto = ((Biblioteca.Models.Persona)Session["Usuario"]);
+    }
+    <main class="flex-shrink-0 mb-5">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-8">
+
+                <a class="navbar-brand" href="@Url.Action("Index", "Admin")">BIBLIOTECA ESPE</a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Admin")">
+                                <i class="fas fa-fw fa-tachometer-alt"></i>
+                                Resumen
+                            </a>
+                        </li>
+
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-list"></i>
+                                Prestamos
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="@Url.Action("Registrar", "Prestamo")">Regitrar</a>
+                                <a class="dropdown-item" href="@Url.Action("Consultar", "Prestamo")">Consultar</a>
+
+                            </div>
+                        </li>
+
+                        @{ if (objeto.oTipoPersona.IdTipoPersona == 1)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-book"></i>
+                                        Biblioteca
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="@Url.Action("Libros", "Biblioteca")">Libros</a>
+                                        <a class="dropdown-item" href="@Url.Action("Autores", "Biblioteca")">Autores</a>
+                                        <a class="dropdown-item" href="@Url.Action("Editorial", "Biblioteca")">Editorial</a>
+                                        <a class="dropdown-item" href="@Url.Action("Categoria", "Biblioteca")">Categoria</a>
+                                    </div>
+                                </li>
+                            }
+                        }
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-friends"></i>
+                                Personas
+                            </a>
+                            <div class="dropdown-menu">
+                                @{if (objeto.oTipoPersona.IdTipoPersona == 1)
+                                    {
+                                        <a class="dropdown-item" href="@Url.Action("Usuarios","Persona")">Usuarios</a>
+                                    }}
+
+                                <a class="dropdown-item" href="@Url.Action("Lectores","Persona")">Lectores</a>
+
+                            </div>
+                        </li>
+
+
+
+                    </ul>
+
+                </div>
+
+
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li class=" nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">@(objeto.Nombre + " " + objeto.Apellido )</span>
+                            <i class="fas fa-user" style="font-size:25px;font-weight:bold"></i>
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="@Url.Action("CerrarSesion","Admin")">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Salir
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+        <!-- Header-->
+
+
+    </main>
+
+    <div class=" container-fluid">
+        @RenderBody()
+    </div>
+
+
+    
+   
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
